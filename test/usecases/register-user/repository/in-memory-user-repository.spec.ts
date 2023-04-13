@@ -15,7 +15,7 @@ describe('In Memory user repository', () => {
     }
 
     await sut.add(userData)
-    const user = await sut.finUserByEmail(userData.email)
+    const user = await sut.findUserByEmail(userData.email)
     expect(user!.user).toEqual(userData)
   })
 
@@ -24,7 +24,7 @@ describe('In Memory user repository', () => {
     const sut = new InMemoryUserRepository(users)
     const email = 'any@email.com'
 
-    const user = await sut.finUserByEmail(email)
+    const user = await sut.findUserByEmail(email)
     expect(user).toBeNull()
   })
 })

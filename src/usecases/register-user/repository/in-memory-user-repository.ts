@@ -19,7 +19,7 @@ export class InMemoryUserRepository implements UserRepository {
     this.repository.push({ id: randomUUID(), ...user })
   }
 
-  async finUserByEmail(email: string): Promise<output | null> {
+  async findUserByEmail(email: string): Promise<output | null> {
     const found = this.repository.find((user) => user.email === email)
 
     if (found === undefined) {
