@@ -14,7 +14,10 @@ export class InMemoryUserRepository implements UserRepository {
   }
 
   async add(user: UserData): Promise<void> {
-    this.repository.push({ id: randomUUID(), ...user })
+    const found = await this.exist(user.email)
+    if (!found) {
+      this.repository.push({ id: randomUUID(), ...user })
+    }
   }
 
   async exist(email: string): Promise<boolean> {
