@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { User } from '../src/entities/user'
+import { User } from '../../src/entities/user'
 
 describe('User', () => {
   it('should create user valid', () => {
