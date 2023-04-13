@@ -15,8 +15,8 @@ describe('In Memory user repository', () => {
     }
 
     await sut.add(userData)
-    const user = await sut.findUserByEmail(userData.email)
-    expect(user!.user).toEqual(userData)
+    const user = await sut.exist(userData.email)
+    expect(user).toBeTruthy()
   })
 
   it('should return null user is not found', async () => {
@@ -24,7 +24,7 @@ describe('In Memory user repository', () => {
     const sut = new InMemoryUserRepository(users)
     const email = 'any@email.com'
 
-    const user = await sut.findUserByEmail(email)
-    expect(user).toBeNull()
+    const user = await sut.exist(email)
+    expect(user).toBeFalsy()
   })
 })

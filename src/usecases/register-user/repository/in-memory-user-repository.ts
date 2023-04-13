@@ -6,8 +6,6 @@ export type input = UserData & {
   id: string
 }
 
-export type output = { user: UserData }
-
 export class InMemoryUserRepository implements UserRepository {
   public readonly repository: input[]
 
@@ -19,13 +17,13 @@ export class InMemoryUserRepository implements UserRepository {
     this.repository.push({ id: randomUUID(), ...user })
   }
 
-  async findUserByEmail(email: string): Promise<output | null> {
+  async exist(email: string): Promise<boolean> {
     const found = this.repository.find((user) => user.email === email)
 
     if (found === undefined) {
-      return null
+      return false
     }
 
-    return { user: { email: found.email, password: found.password } }
+    return true
   }
 }
