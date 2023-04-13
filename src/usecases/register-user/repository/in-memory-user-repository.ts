@@ -1,16 +1,12 @@
 import { randomUUID } from 'node:crypto'
 import { UserData } from '../../../entities/user-data'
+import { UserRepository } from '../ports/user-repository'
 
 export type input = UserData & {
   id: string
 }
 
-type output = { user: UserData }
-
-interface UserRepository {
-  add: (user: UserData) => Promise<void>
-  finUserByEmail: (email: string) => Promise<output | null>
-}
+export type output = { user: UserData }
 
 export class InMemoryUserRepository implements UserRepository {
   public readonly repository: input[]
