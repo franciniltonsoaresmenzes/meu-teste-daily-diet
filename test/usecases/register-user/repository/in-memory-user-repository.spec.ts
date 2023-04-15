@@ -46,4 +46,37 @@ describe('In Memory user repository', () => {
 
     expect(sut.repository.length).toBe(1)
   })
+
+  it('should find user', async () => {
+    const users: input[] = []
+    const sut = new InMemoryUserRepository(users)
+    const userData: UserData = {
+      email: 'any@email.com',
+      password: '123456',
+    }
+
+    await sut.add(userData)
+    const user = await sut.findUser(userData)
+    expect(user).toEqual(userData)
+  })
+
+  it('should find user', async () => {
+    const users: input[] = [
+      {
+        id: 'any-id',
+        email: 'any@email.com',
+        password: '123456',
+      },
+    ]
+    const sut = new InMemoryUserRepository(users)
+    const userData: UserData = {
+      email: 'any@email.co',
+      password: '123456',
+    }
+
+    const user = await sut.findUser(userData)
+    console.log(user)
+
+    expect(user).toBeInstanceOf(Error)
+  })
 })

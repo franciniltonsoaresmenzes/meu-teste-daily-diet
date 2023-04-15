@@ -29,4 +29,12 @@ export class InMemoryUserRepository implements UserRepository {
 
     return true
   }
+
+  async findUser(user: UserData): Promise<UserData | Error> {
+    const found = this.repository.find((data) => data.email === user.email)
+    if (found === undefined) {
+      return new Error('Email invalido')
+    }
+    return { email: found!.email, password: found!.password }
+  }
 }
