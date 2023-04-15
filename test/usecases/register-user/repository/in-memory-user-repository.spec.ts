@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, expectTypeOf } from 'vitest'
 import { UserData } from '../../../../src/entities/user-data'
 import {
   InMemoryUserRepository,
@@ -55,9 +55,17 @@ describe('In Memory user repository', () => {
       password: '123456',
     }
 
+    type data = {
+      email: string
+      password: string
+      sessionId: string
+    }
+
     await sut.add(userData)
     const user = await sut.findUser(userData)
-    expect(user).toEqual(userData)
+
+    expectTypeOf<data>(user).toEqualTypeOf<data>()
+    expectTypeOf(user).toHaveProperty('sessionId').toBeString()
   })
 
   it('should find user', async () => {
