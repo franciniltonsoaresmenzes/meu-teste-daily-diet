@@ -5,7 +5,7 @@ import {
 } from '../../../src/usecases/register-user/repository/in-memory-user-repository'
 import { User } from '../../../src/entities/user'
 import { UserData } from '../../../src/entities/user-data'
-import { RegisterUser } from '../../../src/usecases/register-user/register-user.spec'
+import { RegisterUser } from '../../../src/usecases/register-user/register-user'
 
 describe('Register user', () => {
   it('should add user with complete data', async () => {

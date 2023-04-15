@@ -1,6 +1,7 @@
 import { User } from '../../entities/user'
 import { UseCase } from '../port/use-case'
 import { UserRepository } from './ports/user-repository'
+import bcrypt from 'bcrypt'
 
 export class RegisterUser implements UseCase {
   private readonly userRepo: UserRepository
@@ -11,7 +12,7 @@ export class RegisterUser implements UseCase {
 
   async perform(request: User): Promise<any> {
     const email = request.email
-    const password = request.password
+    const password = await this.encrypt(request.password)
 
     const userData = { email, password }
 
@@ -20,5 +21,12 @@ export class RegisterUser implements UseCase {
     if (!found) {
       await this.userRepo.add(userData)
     }
+  }
+
+  async encrypt(password: string): Promise<string> {
+    const saltsRounds = 10
+    const hashPassword = await bcrypt.hash(password, saltsRounds)
+
+    return hashPassword
   }
 }
