@@ -1,7 +1,5 @@
 import { UserData, userDataschema } from './user-data'
 
-type output = { user: UserData | boolean }
-
 export class User {
   public readonly email: string
   public readonly password: string
@@ -11,11 +9,11 @@ export class User {
     this.password = password
   }
 
-  public static create(user: UserData): output {
+  public static create(user: UserData): User | boolean {
     if (this.validation(user) === false) {
-      return { user: false }
+      return false
     }
-    return { user }
+    return new User(user)
   }
 
   public static validation(user: UserData) {
